@@ -1,0 +1,15 @@
+<odoo>
+	<data>
+		<record id="action_learning_agreement" model="ir.actions.act_window">
+			<field name="name">Learning Agreements</field>
+			<field name="res_model">learning.agreement</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p>Create and manage Learning Agreements</p>
+			</field>
+		</record>
+
+		<menuitem id="menu_learning_agreement_root" name="Learning" sequence="10" groups="sm_learning_agreement.group_learning_agreement_manager"/>
+		<menuitem id="menu_learning_agreement" name="Learning Agreements" parent="menu_learning_agreement_root" action="action_learning_agreement" sequence="10" groups="sm_learning_agreement.group_learning_agreement_manager"/>
+	</data>
+</odoo>

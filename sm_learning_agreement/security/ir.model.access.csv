@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_learning_agreement_manager,access.learning.agreement.manager,model_learning_agreement,sm_learning_agreement.group_learning_agreement_manager,1,1,1,1
+access_learning_agreement_user,access.learning.agreement.user,model_learning_agreement,base.group_portal,1,0,0,0

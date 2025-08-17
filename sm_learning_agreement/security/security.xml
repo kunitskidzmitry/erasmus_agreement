@@ -1,0 +1,16 @@
+<odoo>
+	<data>
+		<record id="group_learning_agreement_manager" model="res.groups">
+			<field name="name">Learning Agreement Manager</field>
+			<field name="category_id" ref="base.module_category_productivity"/>
+		</record>
+
+		<!-- Record rule: portal users can only see their own agreements -->
+		<record id="rule_learning_agreement_portal_own" model="ir.rule">
+			<field name="name">Learning Agreement - Portal Own Records</field>
+			<field name="model_id" ref="model_learning_agreement"/>
+			<field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+			<field name="domain_force">[("student_partner_id","=",user.partner_id.id)]</field>
+		</record>
+	</data>
+</odoo>
