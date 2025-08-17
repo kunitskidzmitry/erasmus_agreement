@@ -1,0 +1,65 @@
+<odoo>
+	<data>
+		<record id="action_report_learning_agreement" model="ir.actions.report">
+			<field name="name">Learning Agreement</field>
+			<field name="model">learning.agreement</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">sm_learning_agreement.report_learning_agreement</field>
+			<field name="report_file">sm_learning_agreement.report_learning_agreement</field>
+			<field name="print_report_name">(object.name or 'Learning Agreement') + '.pdf'</field>
+		</record>
+
+		<template id="report_learning_agreement_document">
+			<t t-call="web.external_layout">
+				<div class="page">
+					<h2>Learning Agreement</h2>
+					<p><strong>Reference:</strong> <span t-esc="doc.name"/></p>
+					<h3>Student Information</h3>
+					<ul>
+						<li><strong>Name:</strong> <span t-esc="doc.student_full_name or doc.student_partner_id.name"/></li>
+						<li><strong>Email:</strong> <span t-esc="doc.student_email or doc.student_partner_id.email or ''"/></li>
+						<li><strong>Phone:</strong> <span t-esc="doc.student_phone or ''"/></li>
+						<li><strong>Address:</strong>
+							<span t-esc="', '.join(filter(None, [doc.student_street, doc.student_street2, doc.student_zip, doc.student_city, doc.student_country_id and doc.student_country_id.name or '']))"/>
+						</li>
+					</ul>
+					<h3>Mobility</h3>
+					<ul>
+						<li><strong>Start Date:</strong> <span t-esc="doc.mobility_start_date"/></li>
+						<li><strong>End Date:</strong> <span t-esc="doc.mobility_end_date"/></li>
+						<li><strong>Learning Outcomes:</strong><br/>
+							<span t-esc="doc.learning_outcomes or ''"/>
+						</li>
+					</ul>
+					<h3>Host Organization</h3>
+					<ul>
+						<li><strong>Name:</strong> <span t-esc="doc.host_org_name or ''"/></li>
+						<li><strong>Address:</strong>
+							<span t-esc="', '.join(filter(None, [doc.host_org_street, doc.host_org_street2, doc.host_org_zip, doc.host_org_city, doc.host_org_country_id and doc.host_org_country_id.name or '']))"/>
+						</li>
+						<li><strong>Responsible:</strong> <span t-esc="doc.host_responsible_name or ''"/> (<span t-esc="doc.host_responsible_email or ''"/>, <span t-esc="doc.host_responsible_phone or ''"/>)</li>
+					</ul>
+					<h3>Signatures</h3>
+					<table class="table table-sm" style="width:100%; margin-top:24px;">
+						<tr>
+							<td style="width:50%; height:80px; border:1px solid #ccc; vertical-align:bottom;">Student Signature</td>
+							<td style="width:50%; height:80px; border:1px solid #ccc; vertical-align:bottom;">Coordinator Signature</td>
+						</tr>
+						<tr>
+							<td><strong>Student:</strong> <span t-esc="doc.student_full_name or doc.student_partner_id.name"/></td>
+							<td><strong>Coordinator:</strong> <span t-esc="doc.coordinator_partner_id.name or ''"/></td>
+						</tr>
+					</table>
+				</div>
+			</t>
+		</template>
+
+		<template id="report_learning_agreement">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="sm_learning_agreement.report_learning_agreement_document"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

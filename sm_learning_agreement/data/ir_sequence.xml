@@ -1,0 +1,11 @@
+<odoo>
+	<data noupdate="1">
+		<record id="seq_learning_agreement" model="ir.sequence">
+			<field name="name">Learning Agreement</field>
+			<field name="code">learning.agreement</field>
+			<field name="prefix">LA%(y)s-</field>
+			<field name="padding">4</field>
+			<field name="company_id" eval="False"/>
+		</record>
+	</data>
+</odoo>

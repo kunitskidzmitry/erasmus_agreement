@@ -1,0 +1,94 @@
+<odoo>
+	<data>
+		<record id="view_learning_agreement_tree" model="ir.ui.view">
+			<field name="name">learning.agreement.tree</field>
+			<field name="model">learning.agreement</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="student_partner_id"/>
+					<field name="coordinator_partner_id"/>
+					<field name="state"/>
+					<field name="signature_status"/>
+					<field name="signature_sent_date"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_learning_agreement_form" model="ir.ui.view">
+			<field name="name">learning.agreement.form</field>
+			<field name="model">learning.agreement</field>
+			<field name="arch" type="xml">
+				<form string="Learning Agreement">
+					<header>
+						<button name="action_set_student_pending" string="Request Student Input" type="object" states="draft,ready" class="btn-secondary"/>
+						<button name="action_mark_ready" string="Mark Ready" type="object" states="draft,student_input" class="btn-secondary"/>
+													<button name="action_generate_pdf" string="Generate PDF" type="object" states="draft,student_input,ready,sent" class="btn-secondary"/>
+							<button name="action_send_student_form_email" string="Send Form Link to Student" type="object" states="draft,student_input,ready" class="btn-secondary"/>
+							<button name="action_send_for_signature" string="Send for Signature" type="object" states="ready" class="btn-primary"/>
+							<button name="action_send_signature_reminder" string="Send Reminder" type="object" states="sent" class="btn-secondary"/>
+							<button name="action_cancel" string="Cancel" type="object" states="draft,student_input,ready,sent" class="btn-secondary"/>
+							<field name="state" widget="statusbar" statusbar_visible="draft,student_input,ready,sent,signed,cancelled"/>
+					</header>
+					<sheet>
+						<h1>
+							<field name="name"/>
+						</h1>
+						<group>
+							<group string="Parties">
+								<field name="student_partner_id"/>
+								<field name="coordinator_partner_id"/>
+								<field name="access_url" readonly="1" widget="url"/>
+							</group>
+							<group string="Signature">
+								<field name="signature_status" readonly="1"/>
+								<field name="signature_sent_date" readonly="1"/>
+								<field name="contract_attachment_id" widget="attachment"/>
+								<field name="sign_request_id" readonly="1"/>
+								<button name="action_invite_student_to_portal" string="Invite Student to Portal" type="object" class="oe_highlight"/>
+							</group>
+						</group>
+
+						<notebook>
+							<page string="Student (Green) Fields">
+								<group>
+									<field name="student_full_name"/>
+									<field name="student_email"/>
+									<field name="student_phone"/>
+									<field name="student_street"/>
+									<field name="student_street2"/>
+									<field name="student_zip"/>
+									<field name="student_city"/>
+									<field name="student_country_id"/>
+								</group>
+							</page>
+							<page string="Coordinator (Yellow) Fields">
+								<group string="Mobility">
+									<field name="mobility_start_date"/>
+									<field name="mobility_end_date"/>
+									<field name="learning_outcomes"/>
+								</group>
+								<group string="Host Organization">
+									<field name="host_org_name"/>
+									<field name="host_org_street"/>
+									<field name="host_org_street2"/>
+									<field name="host_org_zip"/>
+									<field name="host_org_city"/>
+									<field name="host_org_country_id"/>
+									<field name="host_responsible_name"/>
+									<field name="host_responsible_email"/>
+									<field name="host_responsible_phone"/>
+								</group>
+							</page>
+							<page string="Chatter">
+								<field name="message_follower_ids" widget="mail_followers"/>
+								<field name="activity_ids" readonly="1"/>
+								<field name="message_ids" widget="mail_thread"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>
