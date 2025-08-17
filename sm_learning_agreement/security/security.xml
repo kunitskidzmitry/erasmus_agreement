@@ -1,8 +1,13 @@
 <odoo>
 	<data>
+		<record id="module_category_learning_agreement" model="ir.module.category">
+			<field name="name">Learning</field>
+			<field name="sequence">60</field>
+		</record>
+
 		<record id="group_learning_agreement_manager" model="res.groups">
 			<field name="name">Learning Agreement Manager</field>
-			<field name="category_id" ref="base.module_category_productivity"/>
+			<field name="category_id" ref="sm_learning_agreement.module_category_learning_agreement"/>
 		</record>
 
 		<!-- Record rule: portal users can only see their own agreements -->
